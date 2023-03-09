@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import { useLoaderData } from 'react-router-dom';
+import './Home.css'
 import MainSlider from '../MainSlider/MainSlider';
 
 
@@ -8,26 +9,40 @@ const Home = () => {
 
 
     const rooms = useLoaderData()
-    console.log(rooms)
+
     return (
         <div>
             <MainSlider></MainSlider>
 
-            <div className='mt-5'>
-                <Container>
-                    <Row>
-                        <Col col={4}>
-                            First
+
+
+
+            <Container>
+
+                <Row xs={2} md={3} lg={4} className="g-4">
+                    {Array.from(rooms).map((room, idx) => (
+                        <Col key={idx}>
+                            <Card>
+                                <Card.Img variant="top" src={room.image} />
+                                <Card.Body>
+                                    <Card.Title className='text-start'>{room.name}</Card.Title>
+                                    <Card.Text className='text-start'>
+                                        <p>{room.price} per/ <small>Night</small></p>
+                                    </Card.Text>
+                                    <Card.Footer className='cursor' onClick={() => { console.log('ok') }}>
+                                        <small className=""> Book Now</small>
+                                    </Card.Footer>
+                                </Card.Body>
+                            </Card>
                         </Col>
-                        <Col col={4}>
-                            2
-                        </Col>
-                        <Col col={4}>
-                            3
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+                    ))}
+                </Row>
+
+
+            </Container>
+
+
+
         </div>
     );
 };

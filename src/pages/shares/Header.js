@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { BiLogIn, BiLogOut } from "react-icons/bi";
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/UserContext';
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext);
+    console.log(user)
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Brand ><Link to='/'>Your Room</Link> </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
@@ -25,10 +30,16 @@ const Header = () => {
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            <Nav.Link href="#deets">More deets</Nav.Link>
-                            <Nav.Link eventKey={2} href="#memes">
-                                Dank memes
-                            </Nav.Link>
+                            user
+
+                            {user ? <Link onClick={logOut}> <BiLogOut /> Signout</Link>
+                                :
+                                <>
+                                    <Link className='me-2' to='/login'>Login</Link>
+                                    <Link to='/signup'>Sign up</Link>
+                                </>
+                            }
+
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
